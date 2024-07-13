@@ -1,0 +1,157 @@
+'''
+DOCSTRING FOR Week8Homework.py:
+Submitted to: Zahy Abdelaziz
+Written by: Marcelo P. Siblag III
+The goal of this program is for me to create 3 methods:
+1. The first method should test for equality of grades between students.
+2. The second method should test for less than.
+3. The third method should test for greater than or equal to.
+Note: I think to hone my coding skills I have to make a pseudo GUI for this.
+Maybe once our professor teaches us tkinter, then I will remake this with a GUI.
+'''
+
+"""THIS IS THE CLASS FOR THE STUDENTS"""
+class Student:
+    # I have created the first initialization for the class student
+    def __init__(self, name, age, grade):
+        self.name = name
+        self.age = age
+        self.grade = grade
+    
+    '''THIS IS THE METHODS FOR THE CLASSES'''
+    # This is the method for determining if the students have equal grades, get user input later
+    # So i will be the determinant for the user input later
+    def sameGrade(self, i):
+        if self.grade == i:
+            print(self.name)
+    
+    # get user input, then method will see students with the value less than specified amount
+    # Same here, i will be based on the user input
+    def lessThan(self, i):
+        if self.grade < i:
+            print(self.name)
+    
+    # get user input, then method will see students with the value greater than or = or specified amount
+    def greaterThan(self, i):
+        if self.grade >= i:
+            print(self.name)
+    
+    # This is to invoke for the print method so we can see all students
+    # Ref# https://stackoverflow.com/questions/328851/printing-all-instances-of-a-class
+    def display(self):
+        print(f"{self.name}: Age {self.age}, Grade {self.grade}")
+
+"""THIS IS THE LIST OF STUDENTS"""
+# I've taken this list from our actual roster
+students = [
+    Student("Shih Chieh Cheng", 28, 95),
+    Student("Alvaro Coca Cruz", 27, 90),
+    Student("Jefferson Daniel Correa De Oliveira", 35, 90),
+    Student("Danny Xavier Hernandez Diaz", 33, 90),
+    Student("Maria Eduarda Rosa Bretilu", 23, 90),
+    Student("Marcelo III Siblag", 25, 85),
+    Student("Satoshi Tabata", 28, 90)
+]
+
+"""THIS SECTION IS TO STORE ALL OF THE PROMPTS FOR THE WHILE LOOP LATER"""
+# This is to greet the user upon opening the program, and when they finished an operation
+greetPrompt = "Greetings professor Zahy, what would you like to do?"
+# This is the list of options for the user
+userOptions = '''
+Here are your options, sir:
+GRADE CHECKER:__________________________________________________________________________
+1. Checks student's grades that are equal | Type "Equal"
+2. Check student's grades that are less than specified amount | Type "LT"
+3. Check student's grades that are greater than or equal to specified amount | Type "GT"
+STUDENT DISPLAYER:______________________________________________________________________
+1. Display all students and grades | Type "Show all"
+2. To sort all students based on name | Type "Alpha"
+3. To sort shuffle student listed | Type "Shuffle"
+DIAGNOSTIC: #MAIN FUNCTION________________________________
+Type: "Diagnostic"
+Note: Test all operators, and shuffle student list with info displayed
+EXIT THE PROGRAM:__________________________________________
+You can also type "Done" to exit the program | Type "Done"
+'''
+
+'''WHILE LOOP KEY'''
+# This is the value that perpetuates the while loop
+gradeChecker = True
+# This is the prompt to greet the user
+print(greetPrompt)
+
+'''THIS IS THE WHILE LOOP'''
+# This is the while loop that runs the methods I've declared in the class
+# The gradeChecker is set to true at the beginning
+while gradeChecker == True:
+    useraction = input(userOptions)
+    print("Your action is:", useraction)
+
+    # This is for the method same grade
+    if useraction == "Equal":
+        gradeToCheck = int(input("What grade would you like to check? "))
+        for student in students:
+            student.sameGrade(gradeToCheck)
+
+    # This is for the method less than
+    elif useraction == "LT":
+        gradeToCheck = int(input("What grade would you like to check less than? "))
+        for student in students:
+            student.lessThan(gradeToCheck)
+
+    # This is for the method greater than or equal
+    elif useraction == "GT":
+        gradeToCheck = int(input("What grade would you like to check greater than or equal to? "))
+        for student in students:
+            student.greaterThan(gradeToCheck)
+
+    # This is the method to show all students in a list
+    elif useraction == "Show all":
+        for student in students:
+            student.display()
+
+    # This is the method to show all students in alphabetical order (Important for professors, for attendance?)
+    elif useraction == "Alpha":
+        for student in sorted(students, key=lambda s: s.name):
+            student.display()
+
+    # If we want to shuffle the students
+    elif useraction == "Shuffle":
+        shuffled_students = students[:]
+        for i in range(len(shuffled_students) - 1):
+            temp = shuffled_students[i]
+            shuffled_students[i] = shuffled_students[i + 1]
+            shuffled_students[i + 1] = temp
+        for student in shuffled_students:
+            student.display()
+
+    # I just renamed this to diagnostic, because main function sounded lame
+    elif useraction == "Diagnostic":
+        gradeToCheck = int(input("Enter a grade for diagnostic check: "))
+        print("Checking for equal grades:")
+        for student in students:
+            student.sameGrade(gradeToCheck)
+        print("\nChecking for grades less than:")
+        for student in students:
+            student.lessThan(gradeToCheck)
+        print("\nChecking for grades greater than or equal to:")
+        for student in students:
+            student.greaterThan(gradeToCheck)
+        print("\nShuffling and displaying students:")
+        shuffled_students = students[:]
+        for i in range(len(shuffled_students) - 1):
+            temp = shuffled_students[i]
+            shuffled_students[i] = shuffled_students[i + 1]
+            shuffled_students[i + 1] = temp
+        for student in shuffled_students:
+            student.display()
+
+    # This is to end the while loop
+    elif useraction == "Done":
+        gradeChecker = False
+        print("Ok, see you next time!")
+
+'''
+END OF CODE:
+Made by Marcelo III
+'''
